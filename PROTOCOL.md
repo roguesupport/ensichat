@@ -292,3 +292,13 @@ Text the string to be transferred, encoded as UTF-8.
 
 Contains the sender's name and status, which should be used for
 display to users.
+
+### MessageReceived (Content-Type = 5)
+
+     0                   1                   2                   3
+     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                          Message ID                           |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+Informs the sender that the message with the given ID was received.

@@ -6,7 +6,7 @@ import com.nutomic.ensichat.util.BufferUtils
 
 object UserInfo {
 
-  val Type = 7
+  val Type = 4
 
   /**
    * Constructs [[UserInfo]] instance from byte array.
