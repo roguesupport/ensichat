@@ -9,10 +9,10 @@ import android.preference.PreferenceManager
 import android.util.Log
 import com.google.common.collect.HashBiMap
 import com.nutomic.ensichat.R
+import com.nutomic.ensichat.core.body.ConnectionInfo
 import com.nutomic.ensichat.fragments.SettingsFragment
 import com.nutomic.ensichat.protocol.ChatService.InterfaceHandler
 import com.nutomic.ensichat.protocol._
-import com.nutomic.ensichat.protocol.body.ConnectionInfo
 
 import scala.collection.immutable.HashMap
 

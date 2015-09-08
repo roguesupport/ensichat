@@ -1,6 +1,7 @@
 package com.nutomic.ensichat.protocol.body
 
 import android.test.AndroidTestCase
+import com.nutomic.ensichat.core.body.UserInfo
 import junit.framework.Assert
 
 class UserInfoTest extends AndroidTestCase {

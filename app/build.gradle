@@ -14,11 +14,12 @@ dependencies {
     compile "com.android.support:appcompat-v7:23.0.0"
     compile 'com.android.support:design:23.0.0'
     compile 'com.android.support:multidex:1.0.1'
-    androidTestCompile "com.android.support:multidex-instrumentation:1.0.1",
-                       { exclude module: "multidex" }
-    compile "org.scala-lang:scala-library:2.11.7"
+    androidTestCompile 'com.android.support:multidex-instrumentation:1.0.1',
+                       { exclude module: 'multidex' }
+    compile 'org.scala-lang:scala-library:2.11.7'
     compile 'com.google.guava:guava:18.0'
     compile 'com.mobsandgeeks:adapter-kit:0.5.3'
+    compile project(path: ':core')
 }
 
 // RtlHardcoded behaviour differs between target API versions. We only care about API 15.

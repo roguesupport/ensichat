@@ -6,12 +6,8 @@ import android.content.{ContentValues, Context, Intent}
 import android.database.Cursor
 import android.database.sqlite.{SQLiteDatabase, SQLiteOpenHelper}
 import android.support.v4.content.LocalBroadcastManager
-import com.nutomic.ensichat.protocol._
-import com.nutomic.ensichat.protocol.body.Text
-import com.nutomic.ensichat.protocol.header.ContentHeader
-
-import scala.collection.SortedSet
-import scala.collection.immutable.TreeSet
+import com.nutomic.ensichat.core.body.Text
+import com.nutomic.ensichat.core.header.ContentHeader
 
 object Database {
 

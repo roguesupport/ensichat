@@ -5,9 +5,9 @@ import java.io._
 import android.bluetooth.{BluetoothDevice, BluetoothSocket}
 import android.content.{IntentFilter, Intent, Context, BroadcastReceiver}
 import android.util.Log
+import com.nutomic.ensichat.core.body.ConnectionInfo
 import com.nutomic.ensichat.protocol._
-import com.nutomic.ensichat.protocol.body.ConnectionInfo
-import com.nutomic.ensichat.protocol.header.MessageHeader
+import com.nutomic.ensichat.core.header.MessageHeader
 import Message.ReadMessageException
 
 /**

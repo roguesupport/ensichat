@@ -8,7 +8,7 @@ import android.view._
 import android.widget._
 import com.mobsandgeeks.adapters.{InstantCursorAdapter, SimpleSectionAdapter, ViewHandler}
 import com.nutomic.ensichat.R
-import com.nutomic.ensichat.protocol.body.Text
+import com.nutomic.ensichat.core.body.Text
 import com.nutomic.ensichat.protocol.{Address, Message}
 import com.nutomic.ensichat.util.Database
 

@@ -7,11 +7,11 @@ import android.database.DatabaseErrorHandler
 import android.database.sqlite.SQLiteDatabase
 import android.support.v4.content.LocalBroadcastManager
 import android.test.AndroidTestCase
+import com.nutomic.ensichat.core.body.CryptoData
+import com.nutomic.ensichat.core.header.ContentHeader
+import com.nutomic.ensichat.core.header.ContentHeaderTest._
 import com.nutomic.ensichat.protocol.MessageTest._
-import com.nutomic.ensichat.protocol.body.CryptoData
-import com.nutomic.ensichat.protocol.header.ContentHeader
-import com.nutomic.ensichat.protocol.header.ContentHeaderTest._
-import com.nutomic.ensichat.protocol.{Address, Message, UserTest}
+import com.nutomic.ensichat.protocol.UserTest
 import junit.framework.Assert._
 
 import scala.collection.SortedSet

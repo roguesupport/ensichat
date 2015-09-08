@@ -8,7 +8,7 @@ import android.database.Cursor
 import com.mobsandgeeks.adapters.{Sectionizer, SimpleSectionAdapter}
 import com.nutomic.ensichat.R
 import com.nutomic.ensichat.protocol.Message
-import com.nutomic.ensichat.protocol.header.ContentHeader
+import com.nutomic.ensichat.core.header.ContentHeader
 import com.nutomic.ensichat.util.Database
 
 object DatesAdapter {

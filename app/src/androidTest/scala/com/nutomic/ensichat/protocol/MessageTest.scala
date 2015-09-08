@@ -3,10 +3,11 @@ package com.nutomic.ensichat.protocol
 import java.io.ByteArrayInputStream
 
 import android.test.AndroidTestCase
+import com.nutomic.ensichat.core.body.{ConnectionInfo, Text}
 import com.nutomic.ensichat.protocol.MessageTest._
-import com.nutomic.ensichat.protocol.body.{ConnectionInfo, ConnectionInfoTest, Text}
-import com.nutomic.ensichat.protocol.header.ContentHeaderTest._
-import com.nutomic.ensichat.protocol.header.MessageHeader
+import com.nutomic.ensichat.protocol.body.ConnectionInfoTest
+import com.nutomic.ensichat.core.header.ContentHeaderTest._
+import com.nutomic.ensichat.core.header.MessageHeader
 import junit.framework.Assert._
 
 import scala.collection.immutable.TreeSet

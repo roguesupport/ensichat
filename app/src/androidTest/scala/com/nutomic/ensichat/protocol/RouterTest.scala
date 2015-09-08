@@ -3,8 +3,8 @@ package com.nutomic.ensichat.protocol
 import java.util.{Date, GregorianCalendar}
 
 import android.test.AndroidTestCase
-import com.nutomic.ensichat.protocol.body.{Text, UserInfo}
-import com.nutomic.ensichat.protocol.header.ContentHeader
+import com.nutomic.ensichat.core.body.{UserInfo, Text}
+import com.nutomic.ensichat.core.header.ContentHeader
 import junit.framework.Assert._
 
 class RouterTest extends AndroidTestCase {

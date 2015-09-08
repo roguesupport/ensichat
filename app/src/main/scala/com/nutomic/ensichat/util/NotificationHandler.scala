@@ -6,7 +6,7 @@ import android.preference.PreferenceManager
 import android.support.v4.app.NotificationCompat
 import com.nutomic.ensichat.R
 import com.nutomic.ensichat.activities.MainActivity
-import com.nutomic.ensichat.protocol.body.Text
+import com.nutomic.ensichat.core.body.Text
 import com.nutomic.ensichat.protocol.{Crypto, Message}
 
 object NotificationHandler {
