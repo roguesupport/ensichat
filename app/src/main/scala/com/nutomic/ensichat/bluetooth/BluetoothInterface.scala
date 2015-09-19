@@ -9,13 +9,10 @@ import android.preference.PreferenceManager
 import android.util.Log
 import com.google.common.collect.HashBiMap
 import com.nutomic.ensichat.R
-import com.nutomic.ensichat.core.ChatService.InterfaceHandler
-import com.nutomic.ensichat.core.{Address, Message}
 import com.nutomic.ensichat.core.body.ConnectionInfo
-import com.nutomic.ensichat.core.interfaces.TransmissionInterface
+import com.nutomic.ensichat.core.interfaces.{Settings, TransmissionInterface}
+import com.nutomic.ensichat.core.{Crypto, Address, Message}
 import com.nutomic.ensichat.fragments.SettingsFragment
-import com.nutomic.ensichat.protocol.ChatService.InterfaceHandler
-import com.nutomic.ensichat.protocol._
 
 import scala.collection.immutable.HashMap
 
@@ -111,8 +108,8 @@ class BluetoothInterface(context: Context, mainHandler: Handler,
     }
 
     val pm = PreferenceManager.getDefaultSharedPreferences(context)
-    val scanInterval = pm.getString(SettingsFragment.KeyScanInterval,
-      context.getResources.getString(R.string.default_scan_interval)).toInt * 1000
+    val scanInterval =
+      pm.getString(Settings.KeyScanInterval, Settings.DefaultScanInterval.toString).toInt * 1000
     mainHandler.postDelayed(new Runnable {
       override def run(): Unit = discover()
     }, scanInterval)

@@ -2,15 +2,16 @@ package com.nutomic.ensichat.core.interfaces
 
 object Settings {
 
-  val KeyUserName     = "user_name"
-  val KeyUserStatus   = "user_status"
-  val KeyScanInterval = "scan_interval_seconds"
-  val MaxConnections  = "max_connections"
+  val KeyUserName             = "user_name"
+  val KeyUserStatus           = "user_status"
+  val KeyNotificationSoundsOn = "notification_sounds"
+  val KeyScanInterval         = "scan_interval_seconds"
+  val MaxConnections          = "max_connections"
 
-  val DefaultUserStatus                = "Let's chat!"
-  val DefaultScanInterval              = 15
-  val DefaultNotificationSoundsEnabled = true
-  val DefaultMaxConnections            = 1000000
+  val DefaultUserStatus           = "Let's chat!"
+  val DefaultScanInterval         = 15
+  val DefaultNotificationSoundsOn = true
+  val DefaultMaxConnections       = 1000000
 
 }
 

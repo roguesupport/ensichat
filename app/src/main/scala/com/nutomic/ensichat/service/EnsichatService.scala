@@ -5,13 +5,13 @@ import java.io.File
 import android.app.{Notification, NotificationManager, PendingIntent, Service}
 import android.content.{Context, Intent}
 import android.os.Handler
+import android.support.v4.app.NotificationCompat
+import com.nutomic.ensichat.R
 import com.nutomic.ensichat.activities.MainActivity
 import com.nutomic.ensichat.bluetooth.BluetoothInterface
 import com.nutomic.ensichat.core.ChatService
-import com.nutomic.ensichat.core.interfaces.{Settings, DatabaseInterface}
+import com.nutomic.ensichat.core.interfaces.{CallbackInterface, DatabaseInterface, Log, Settings}
 import com.nutomic.ensichat.util.{NotificationHandler, PRNGFixes}
-import android.support.v4.app.NotificationCompat
-import com.nutomic.ensichat.R
 
 class EnsichatService extends Service {
 
@@ -26,11 +26,10 @@ class EnsichatService extends Service {
 
   // TODO
   private val database: DatabaseInterface = null
-
-  // TODO
   private lazy val settings: Settings = null
+  private val callbacks: CallbackInterface = null
 
-  private lazy val chatService = new ChatService(settings, database, new File(getFilesDir, "keys"))
+  private lazy val chatService = new ChatService(settings, database, callbacks, new File(getFilesDir, "keys"))
 
   override def onBind(intent: Intent) =  binder
 
@@ -42,6 +41,7 @@ class EnsichatService extends Service {
   override def onCreate(): Unit = {
     super.onCreate()
     PRNGFixes.apply()
+    Log.setLogClass(classOf[android.util.Log])
     showPersistentNotification()
     chatService.start()
     // TODO: how to handle callbacks?

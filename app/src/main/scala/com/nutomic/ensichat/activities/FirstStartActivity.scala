@@ -11,6 +11,7 @@ import android.view.{KeyEvent, View}
 import android.widget.TextView.OnEditorActionListener
 import android.widget.{Button, EditText, TextView}
 import com.nutomic.ensichat.R
+import com.nutomic.ensichat.core.interfaces.Settings
 import com.nutomic.ensichat.fragments.SettingsFragment
 
 /**
@@ -68,8 +69,8 @@ class FirstStartActivity extends AppCompatActivity with OnEditorActionListener w
     preferences
       .edit()
       .putBoolean(KeyIsFirstStart, false)
-      .putString(SettingsFragment.KeyUserName, username.getText.toString.trim)
-      .putString(SettingsFragment.KeyUserStatus, getString(R.string.default_user_status))
+      .putString(Settings.KeyUserName, username.getText.toString.trim)
+      .putString(Settings.KeyUserStatus, Settings.DefaultUserStatus)
       .apply()
 
     startMainActivity()

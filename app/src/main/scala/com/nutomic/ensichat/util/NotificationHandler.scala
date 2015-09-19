@@ -6,8 +6,9 @@ import android.preference.PreferenceManager
 import android.support.v4.app.NotificationCompat
 import com.nutomic.ensichat.R
 import com.nutomic.ensichat.activities.MainActivity
+import com.nutomic.ensichat.core.{Crypto, Message}
 import com.nutomic.ensichat.core.body.Text
-import com.nutomic.ensichat.protocol.{Crypto, Message}
+import com.nutomic.ensichat.core.interfaces.Settings
 
 object NotificationHandler {
 
@@ -48,8 +49,7 @@ class NotificationHandler(context: Context) {
    */
   def defaults(): Int = {
     val sp = PreferenceManager.getDefaultSharedPreferences(context)
-    val defaultSounds = context.getResources.getBoolean(R.bool.default_notification_sounds)
-    if (sp.getBoolean("notification_sounds", defaultSounds))
+    if (sp.getBoolean(Settings.KeyNotificationSoundsOn, Settings.DefaultNotificationSoundsOn))
       Notification.DEFAULT_ALL
     else
       Notification.DEFAULT_VIBRATE | Notification.DEFAULT_LIGHTS

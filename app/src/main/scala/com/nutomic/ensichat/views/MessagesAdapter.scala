@@ -9,8 +9,8 @@ import android.widget._
 import com.mobsandgeeks.adapters.{InstantCursorAdapter, SimpleSectionAdapter, ViewHandler}
 import com.nutomic.ensichat.R
 import com.nutomic.ensichat.core.body.Text
-import com.nutomic.ensichat.protocol.{Address, Message}
 import com.nutomic.ensichat.util.Database
+import com.nutomic.ensichat.core.{Address, Message}
 
 /**
  * Displays [[Message]]s in ListView.

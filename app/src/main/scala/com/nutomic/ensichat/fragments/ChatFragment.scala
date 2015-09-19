@@ -13,7 +13,8 @@ import android.widget._
 import com.nutomic.ensichat.R
 import com.nutomic.ensichat.activities.EnsichatActivity
 import com.nutomic.ensichat.core.body.Text
-import com.nutomic.ensichat.protocol.{Address, ChatService, Message}
+import com.nutomic.ensichat.core.{ChatService, Address, Message}
+import com.nutomic.ensichat.service.EnsichatService
 import com.nutomic.ensichat.util.Database
 import com.nutomic.ensichat.views.{DatesAdapter, MessagesAdapter}
 
@@ -36,7 +37,7 @@ class ChatFragment extends ListFragment with OnClickListener {
 
   private var address: Address = _
 
-  private var chatService: ChatService = _
+  private var chatService: EnsichatService = _
 
   private var sendButton: Button = _
 

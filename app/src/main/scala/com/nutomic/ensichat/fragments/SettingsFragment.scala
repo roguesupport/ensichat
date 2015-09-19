@@ -12,9 +12,7 @@ import com.nutomic.ensichat.fragments.SettingsFragment._
 import com.nutomic.ensichat.util.Database
 
 object SettingsFragment {
-
-  val Version         = "version"
-
+  val Version = "version"
 }
 
 /**
@@ -25,11 +23,12 @@ class SettingsFragment extends PreferenceFragment with OnPreferenceChangeListene
 
   private lazy val database = new Database(getActivity)
 
-  private lazy val name           = findPreference(KeyUserName)
-  private lazy val status         = findPreference(KeyUserStatus)
-  private lazy val scanInterval   = findPreference(KeyScanInterval)
-  private lazy val maxConnections = findPreference(MaxConnections)
-  private lazy val version        = findPreference(Version)
+  private lazy val name                 = findPreference(KeyUserName)
+  private lazy val status               = findPreference(KeyUserStatus)
+  private lazy val notificationSoundsOn = findPreference(KeyNotificationSoundsOn)
+  private lazy val scanInterval         = findPreference(KeyScanInterval)
+  private lazy val maxConnections       = findPreference(MaxConnections)
+  private lazy val version              = findPreference(Version)
 
   private lazy val prefs = PreferenceManager.getDefaultSharedPreferences(getActivity)
 
@@ -38,19 +37,17 @@ class SettingsFragment extends PreferenceFragment with OnPreferenceChangeListene
 
     addPreferencesFromResource(R.xml.settings)
 
-    name.setSummary(prefs.getString(KeyUserName, ""))
+    notificationSoundsOn.setDefaultValue(DefaultNotificationSoundsOn)
+    scanInterval.setDefaultValue(DefaultScanInterval)
+    maxConnections.setDefaultValue(DefaultMaxConnections)
+
     name.setOnPreferenceChangeListener(this)
-    status.setSummary(prefs.getString(KeyUserStatus, ""))
     status.setOnPreferenceChangeListener(this)
 
     scanInterval.setOnPreferenceChangeListener(this)
-    scanInterval.setSummary(prefs.getString(
-      KeyScanInterval, getResources.getString(R.string.default_scan_interval)))
 
     if (BuildConfig.DEBUG) {
       maxConnections.setOnPreferenceChangeListener(this)
-      maxConnections.setSummary(prefs.getString(
-        MaxConnections, getResources.getString(R.string.default_max_connections)))
     } else
       getPreferenceScreen.removePreference(maxConnections)
 

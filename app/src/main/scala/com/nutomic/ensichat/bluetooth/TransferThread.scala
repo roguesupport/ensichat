@@ -3,12 +3,12 @@ package com.nutomic.ensichat.bluetooth
 import java.io._
 
 import android.bluetooth.{BluetoothDevice, BluetoothSocket}
-import android.content.{IntentFilter, Intent, Context, BroadcastReceiver}
+import android.content.{BroadcastReceiver, Context, Intent, IntentFilter}
 import android.util.Log
+import com.nutomic.ensichat.core.{Crypto, Address, Message}
+import com.nutomic.ensichat.core.Message.ReadMessageException
 import com.nutomic.ensichat.core.body.ConnectionInfo
-import com.nutomic.ensichat.protocol._
 import com.nutomic.ensichat.core.header.MessageHeader
-import Message.ReadMessageException
 
 /**
  * Transfers data between connnected devices.

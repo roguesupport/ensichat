@@ -2,10 +2,10 @@ package com.nutomic.ensichat.fragments
 
 import android.app.{AlertDialog, Dialog, DialogFragment}
 import android.os.Bundle
-import android.view.{LayoutInflater, View, ViewGroup}
+import android.view.LayoutInflater
 import android.widget.{ImageView, TextView}
 import com.nutomic.ensichat.R
-import com.nutomic.ensichat.protocol.Address
+import com.nutomic.ensichat.core.Address
 import com.nutomic.ensichat.util.IdenticonGenerator
 
 object IdenticonFragment {

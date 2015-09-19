@@ -7,8 +7,8 @@ import android.view.View.OnClickListener
 import android.view.{LayoutInflater, View, ViewGroup}
 import android.widget.{ArrayAdapter, ImageView, TextView}
 import com.nutomic.ensichat.R
+import com.nutomic.ensichat.core.User
 import com.nutomic.ensichat.fragments.IdenticonFragment
-import com.nutomic.ensichat.protocol.{Crypto, User}
 import com.nutomic.ensichat.util.IdenticonGenerator
 
 /**

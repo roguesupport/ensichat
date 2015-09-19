@@ -2,20 +2,18 @@ package com.nutomic.ensichat.fragments
 
 import java.io.File
 
-import android.app.{ActionBar, ListFragment}
+import android.app.ListFragment
 import android.content.{BroadcastReceiver, Context, Intent, IntentFilter}
-import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.preference.PreferenceManager
-import android.support.v4.content.{ContextCompat, LocalBroadcastManager}
-import android.support.v7.widget.Toolbar
 import android.view.View.OnClickListener
 import android.view._
-import android.widget.{ListView, TextView, Toast}
-import com.nutomic.ensichat.R
+import android.widget.{ListView, TextView}
 import com.nutomic.ensichat.activities.{ConnectionsActivity, EnsichatActivity, MainActivity, SettingsActivity}
-import com.nutomic.ensichat.protocol.{ChatService, Crypto}
+import com.nutomic.ensichat.core.Crypto
+import com.nutomic.ensichat.core.interfaces.Settings
+import com.nutomic.ensichat.service.EnsichatService
 import com.nutomic.ensichat.util.Database
 import com.nutomic.ensichat.views.UsersAdapter
 
@@ -99,7 +97,7 @@ class ContactsFragment extends ListFragment with OnClickListener {
       bundle.putString(
         IdenticonFragment.ExtraAddress, new Crypto(getActivity).localAddress.toString)
       bundle.putString(
-        IdenticonFragment.ExtraUserName, prefs.getString(SettingsFragment.KeyUserName, ""))
+        IdenticonFragment.ExtraUserName, prefs.getString(Settings.KeyUserName, ""))
       fragment.setArguments(bundle)
       fragment.show(getFragmentManager, "dialog")
       true
@@ -107,7 +105,7 @@ class ContactsFragment extends ListFragment with OnClickListener {
       startActivity(new Intent(getActivity, classOf[SettingsActivity]))
       true
     case R.id.exit =>
-      getActivity.stopService(new Intent(getActivity, classOf[ChatService]))
+      getActivity.stopService(new Intent(getActivity, classOf[EnsichatService]))
       getActivity.finish()
       true
     case _ =>

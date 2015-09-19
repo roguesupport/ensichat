@@ -6,6 +6,7 @@ import android.content.{ContentValues, Context, Intent}
 import android.database.Cursor
 import android.database.sqlite.{SQLiteDatabase, SQLiteOpenHelper}
 import android.support.v4.content.LocalBroadcastManager
+import com.nutomic.ensichat.core.{User, Address, Message}
 import com.nutomic.ensichat.core.body.Text
 import com.nutomic.ensichat.core.header.ContentHeader
 

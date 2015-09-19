@@ -3,7 +3,7 @@ package com.nutomic.ensichat.util
 import android.content.Context
 import android.graphics.Bitmap.Config
 import android.graphics.{Bitmap, Canvas, Color}
-import com.nutomic.ensichat.protocol.Address
+import com.nutomic.ensichat.core.Address
 
 /**
  * Calculates a unique identicon for the given hash.
