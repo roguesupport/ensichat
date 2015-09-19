@@ -3,7 +3,7 @@ package com.nutomic.ensichat.core
 import java.io.InputStream
 import java.security.spec.InvalidKeySpecException
 
-import com.nutomic.ensichat.core.body.{EncryptedBody, ConnectionInfo, CryptoData}
+import com.nutomic.ensichat.core.body.{MessageBody, EncryptedBody, ConnectionInfo, CryptoData}
 import com.nutomic.ensichat.core.header.{AbstractHeader, ContentHeader, MessageHeader}
 
 object Message {

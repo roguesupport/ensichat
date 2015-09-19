@@ -9,7 +9,7 @@ import javax.crypto.{Cipher, CipherOutputStream, KeyGenerator, SecretKey}
 import com.nutomic.ensichat.core.Crypto._
 import com.nutomic.ensichat.core.body._
 import com.nutomic.ensichat.core.header.ContentHeader
-import com.nutomic.ensichat.core.interfaces.Log
+import com.nutomic.ensichat.core.interfaces.{Settings, Log}
 
 object Crypto {
 
@@ -54,10 +54,9 @@ object Crypto {
 /**
  * Handles all cryptography related operations.
  *
- * @note We can't use [[KeyStore]], because it requires certificates, and does not work for
- *       private keys
+ * @param keyFolder Folder where private and public keys are stored.
  */
-class Crypto(context: Context) {
+class Crypto(preferences: Settings, keyFolder: File) {
 
   private val Tag = "Crypto"
 
@@ -82,10 +81,7 @@ class Crypto(context: Context) {
       // The hash must have at least one bit set to not collide with the broadcast address.
     } while(address == Address.Broadcast || address == Address.Null)
 
-    PreferenceManager.getDefaultSharedPreferences(context)
-      .edit()
-      .putString(Crypto.LocalAddressKey, address.toString)
-      .commit()
+    preferences.put(Crypto.LocalAddressKey, address.toString)
 
     saveKey(PrivateKeyAlias, keyPair.getPrivate)
     saveKey(PublicKeyAlias, keyPair.getPublic)
@@ -213,11 +209,6 @@ class Crypto(context: Context) {
     }
   }
 
-  /**
-   * Returns the folder where keys are stored.
-   */
-  private def keyFolder = new File(context.getFilesDir, "keys")
-
   def encrypt(msg: Message, key: PublicKey = null): Message = {
     assert(msg.crypto.signature.isDefined, "Message must be signed before encryption")
 
@@ -299,7 +290,6 @@ class Crypto(context: Context) {
   /**
    * Returns the address of the local node.
    */
-  def localAddress = new Address(
-    PreferenceManager.getDefaultSharedPreferences(context).getString(LocalAddressKey, null))
+  def localAddress = new Address(preferences.get(LocalAddressKey, ""))
 
 }

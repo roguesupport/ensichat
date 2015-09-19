@@ -4,7 +4,7 @@ import com.nutomic.ensichat.core.{User, Message, Address}
 
 import scala.collection.SortedSet
 
-trait Database {
+trait DatabaseInterface {
 
   /**
    * Returns the count last messages for device.

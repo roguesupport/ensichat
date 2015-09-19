@@ -1,11 +1,17 @@
 package com.nutomic.ensichat.service
 
+import java.io.File
+
 import android.app.{Notification, NotificationManager, PendingIntent, Service}
 import android.content.{Context, Intent}
+import android.os.Handler
 import com.nutomic.ensichat.activities.MainActivity
+import com.nutomic.ensichat.bluetooth.BluetoothInterface
 import com.nutomic.ensichat.core.ChatService
+import com.nutomic.ensichat.core.interfaces.{Settings, DatabaseInterface}
 import com.nutomic.ensichat.util.{NotificationHandler, PRNGFixes}
 import android.support.v4.app.NotificationCompat
+import com.nutomic.ensichat.R
 
 class EnsichatService extends Service {
 
@@ -18,7 +24,13 @@ class EnsichatService extends Service {
   private lazy val notificationManager =
     getSystemService(Context.NOTIFICATION_SERVICE).asInstanceOf[NotificationManager]
 
-  private lazy val chatService = new ChatService
+  // TODO
+  private val database: DatabaseInterface = null
+
+  // TODO
+  private lazy val settings: Settings = null
+
+  private lazy val chatService = new ChatService(settings, database, new File(getFilesDir, "keys"))
 
   override def onBind(intent: Intent) =  binder
 
@@ -32,7 +44,9 @@ class EnsichatService extends Service {
     PRNGFixes.apply()
     showPersistentNotification()
     chatService.start()
-    // TODO: pass bluetooth interface
+    // TODO: how to handle callbacks?
+    chatService.setTransmissionInterface(new BluetoothInterface(this, new Handler(),
+      onMessageReceived, callConnectionListeners, onConnectionOpened))
   }
 
   def showPersistentNotification(): Unit = {

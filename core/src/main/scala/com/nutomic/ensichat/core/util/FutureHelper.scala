@@ -10,13 +10,11 @@ import scala.concurrent.{ExecutionContext, Future}
 object FutureHelper {
 
   def apply[A](action: => A)(implicit executor: ExecutionContext): Future[A] = {
-    val handler = new Handler(Looper.getMainLooper)
     val f = Future(action)
     f.onFailure {
       case e =>
-        handler.post(new Runnable {
-          override def run(): Unit = throw e
-        })
+        // TODO: check if we need to throw on GUI thread
+        throw e
     }
     f
   }

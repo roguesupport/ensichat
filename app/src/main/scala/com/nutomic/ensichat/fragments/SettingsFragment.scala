@@ -5,20 +5,14 @@ import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import android.os.Bundle
 import android.preference.Preference.OnPreferenceChangeListener
 import android.preference.{Preference, PreferenceFragment, PreferenceManager}
-import com.nutomic.ensichat.core.body.UserInfo
-import com.nutomic.ensichat.protocol.Crypto
-import com.nutomic.ensichat.{BuildConfig, R}
 import com.nutomic.ensichat.activities.EnsichatActivity
+import com.nutomic.ensichat.core.body.UserInfo
+import com.nutomic.ensichat.core.interfaces.Settings._
 import com.nutomic.ensichat.fragments.SettingsFragment._
 import com.nutomic.ensichat.util.Database
-import com.nutomic.ensichat.{BuildConfig, R}
 
 object SettingsFragment {
 
-  val KeyUserName     = "user_name"
-  val KeyUserStatus   = "user_status"
-  val KeyScanInterval = "scan_interval_seconds"
-  val MaxConnections  = "max_connections"
   val Version         = "version"
 
 }

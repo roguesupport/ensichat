@@ -1,11 +1,13 @@
 package com.nutomic.ensichat.core
 
+import java.io.File
 import java.util.Date
 
 import com.nutomic.ensichat.core.body.{ConnectionInfo, MessageBody, UserInfo}
 import com.nutomic.ensichat.core.header.ContentHeader
-import com.nutomic.ensichat.core.interfaces.{Database, Log}
+import com.nutomic.ensichat.core.interfaces._
 import com.nutomic.ensichat.core.util.FutureHelper
+import scala.concurrent.ExecutionContext.Implicits.global
 
 object ChatService {
 
@@ -15,40 +17,23 @@ object ChatService {
 
   val ExtraMessage             = "extra_message"
 
-  abstract class InterfaceHandler {
-
-    def create(): Unit
-
-    def destroy(): Unit
-
-    def send(nextHop: Address, msg: Message): Unit
-
-  }
-
 }
 
 /**
  * High-level handling of all message transfers and callbacks.
  */
-class ChatService {
+class ChatService(settings: Settings, database: DatabaseInterface, callbacks: CallbackInterface,
+                  keyFolder: File) {
 
   private val Tag = "ChatService"
 
-  // TODO: pass in
-  private val database: Database = null
+  private lazy val crypto = new Crypto(settings, keyFolder)
 
-  private lazy val preferences = PreferenceManager.getDefaultSharedPreferences(this)
-
-  private val mainHandler = new Handler()
-
-  private lazy val crypto = new Crypto(this)
-
-  private lazy val btInterface = new BluetoothInterface(this, mainHandler,
-    onMessageReceived, callConnectionListeners, onConnectionOpened)
+  private var transmissionInterface: TransmissionInterface = _
 
   private lazy val router = new Router(connections, sendVia)
 
-  private lazy val seqNumGenerator = new SeqNumGenerator(this)
+  private lazy val seqNumGenerator = new SeqNumGenerator(settings)
 
   /**
    * Holds all known users.
@@ -68,18 +53,21 @@ class ChatService {
   }
 
   def stop(): Unit = {
-
+    transmissionInterface.destroy()
   }
+
+  def setTransmissionInterface(interface: TransmissionInterface) =
+    transmissionInterface = interface
 
   /**
    * Sends a new message to the given target address.
    */
   def sendTo(target: Address, body: MessageBody): Unit = {
     FutureHelper {
-      val messageId = preferences.getLong("message_id", 0)
+      val messageId = settings.get("message_id", 0L)
       val header = new ContentHeader(crypto.localAddress, target, seqNumGenerator.next(),
         body.contentType, Some(messageId), Some(new Date()))
-      preferences.edit().putLong("message_id", messageId + 1)
+      settings.put("message_id", messageId + 1)
 
       val msg = new Message(header, body)
       val encrypted = crypto.encrypt(crypto.sign(msg))
@@ -89,7 +77,7 @@ class ChatService {
   }
 
   private def sendVia(nextHop: Address, msg: Message) =
-    btInterface.send(nextHop, msg)
+    transmissionInterface.send(nextHop, msg)
 
   /**
    * Decrypts and verifies incoming messages, forwards valid ones to [[onNewMessage()]].
@@ -117,18 +105,14 @@ class ChatService {
       if (database.getContact(msg.header.origin).nonEmpty)
         database.updateContact(contact)
 
-      callConnectionListeners()
+      callbacks.onConnectionsChanged()
     case _ =>
       val origin = msg.header.origin
       if (origin != crypto.localAddress && database.getContact(origin).isEmpty)
         database.addContact(getUser(origin))
 
       database.onMessageReceived(msg)
-      notificationHandler.onMessageReceived(msg)
-      val i = new Intent(ChatService.ActionMessageReceived)
-      i.putExtra(ChatService.ExtraMessage, msg)
-      LocalBroadcastManager.getInstance(this)
-        .sendBroadcast(i)
+      callbacks.onMessageReceived(msg)
   }
 
   /**
@@ -137,14 +121,11 @@ class ChatService {
    * This adds the other node's public key if we don't have it. If we do, it validates the signature
    * with the stored key.
    *
-   * The caller must invoke [[callConnectionListeners()]]
-   *
    * @param msg The message containing [[ConnectionInfo]] to open the connection.
    * @return True if the connection is valid
    */
   def onConnectionOpened(msg: Message): Boolean = {
-    val maxConnections = preferences.getString(SettingsFragment.MaxConnections,
-      getResources.getString(R.string.default_max_connections)).toInt
+    val maxConnections = settings.get(Settings.MaxConnections, Settings.DefaultMaxConnections).toInt
     if (connections().size == maxConnections) {
       Log.i(Tag, "Maximum number of connections reached")
       return false
@@ -170,19 +151,13 @@ class ChatService {
     }
 
     Log.i(Tag, "Node " + sender + " connected")
-    sendTo(sender, new UserInfo(preferences.getString(SettingsFragment.KeyUserName, ""),
-                                preferences.getString(SettingsFragment.KeyUserStatus, "")))
-    callConnectionListeners()
+    sendTo(sender, new UserInfo(settings.get(Settings.KeyUserName, ""),
+                                settings.get(Settings.KeyUserStatus, "")))
+    callbacks.onConnectionsChanged()
     true
   }
 
-  def callConnectionListeners(): Unit = {
-    LocalBroadcastManager.getInstance(this)
-      .sendBroadcast(new Intent(ChatService.ActionConnectionsChanged))
-  }
-
-  def connections() =
-    btInterface.getConnections
+  def connections() = transmissionInterface.getConnections
 
   def getUser(address: Address) =
     knownUsers.find(_.address == address).getOrElse(new User(address, address.toString, ""))

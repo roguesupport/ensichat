@@ -9,7 +9,10 @@ import android.preference.PreferenceManager
 import android.util.Log
 import com.google.common.collect.HashBiMap
 import com.nutomic.ensichat.R
+import com.nutomic.ensichat.core.ChatService.InterfaceHandler
+import com.nutomic.ensichat.core.{Address, Message}
 import com.nutomic.ensichat.core.body.ConnectionInfo
+import com.nutomic.ensichat.core.interfaces.TransmissionInterface
 import com.nutomic.ensichat.fragments.SettingsFragment
 import com.nutomic.ensichat.protocol.ChatService.InterfaceHandler
 import com.nutomic.ensichat.protocol._
@@ -31,7 +34,7 @@ object BluetoothInterface {
 class BluetoothInterface(context: Context, mainHandler: Handler,
                          onMessageReceived: Message => Unit, callConnectionListeners: () => Unit,
                          onConnectionOpened: (Message) => Boolean)
-  extends InterfaceHandler {
+  extends TransmissionInterface {
 
   private val Tag = "BluetoothInterface"
 
