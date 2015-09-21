@@ -1,9 +1,10 @@
-package com.nutomic.ensichat.protocol
+package com.nutomic.ensichat.core
 
-import android.test.AndroidTestCase
-import junit.framework.Assert._
+import org.junit.Assert._
+import junit.framework.TestCase
 
-class CryptoTest extends AndroidTestCase {
+class CryptoTest extends TestCase {
+
 
   private lazy val crypto: Crypto = new Crypto(getContext)
 

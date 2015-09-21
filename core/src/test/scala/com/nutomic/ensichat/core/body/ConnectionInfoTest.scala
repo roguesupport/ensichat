@@ -1,10 +1,7 @@
-package com.nutomic.ensichat.protocol.body
+package com.nutomic.ensichat.core.body
 
-import android.content.Context
-import android.test.AndroidTestCase
-import com.nutomic.ensichat.core.body.ConnectionInfo
-import com.nutomic.ensichat.protocol.Crypto
-import junit.framework.Assert
+import junit.framework.TestCase
+import org.junit.Assert._
 
 object ConnectionInfoTest {
 
@@ -17,13 +14,13 @@ object ConnectionInfoTest {
 
 }
 
-class ConnectionInfoTest extends AndroidTestCase {
+class ConnectionInfoTest extends TestCase {
 
   def testWriteRead(): Unit = {
     val ci = ConnectionInfoTest.generateCi(getContext)
     val bytes = ci.write
     val body = ConnectionInfo.read(bytes)
-    Assert.assertEquals(ci.key, body.asInstanceOf[ConnectionInfo].key)
+    assertEquals(ci.key, body.asInstanceOf[ConnectionInfo].key)
   }
 
 }

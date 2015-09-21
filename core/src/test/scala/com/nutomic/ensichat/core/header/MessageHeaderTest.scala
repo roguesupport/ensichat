@@ -1,9 +1,9 @@
 package com.nutomic.ensichat.core.header
 
-import android.test.AndroidTestCase
+import com.nutomic.ensichat.core.{Address, AddressTest}
+import org.junit.Assert._
+import junit.framework.TestCase
 import com.nutomic.ensichat.core.header.MessageHeaderTest._
-import com.nutomic.ensichat.protocol.{Address, AddressTest}
-import junit.framework.Assert._
 
 object MessageHeaderTest {
 
@@ -19,7 +19,7 @@ object MessageHeaderTest {
 
 }
 
-class MessageHeaderTest extends AndroidTestCase {
+class MessageHeaderTest extends TestCase {
 
   def testSerialize(): Unit = {
     headers.foreach{h =>

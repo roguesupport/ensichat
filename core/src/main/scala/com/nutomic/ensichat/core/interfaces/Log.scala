@@ -8,24 +8,18 @@ object Log {
 
   private var logClass: Class[_] = _
 
-  def v(tag: String, message: String, throwable: Throwable = null) =
-    logClass.getMethod("v", classOf[String], classOf[String], classOf[Throwable])
-      .invoke(null, tag, message, throwable)
+  def v(tag: String, message: String, tr: Throwable = null) = log("v", tag, message, tr)
 
-  def d(tag: String, message: String, throwable: Throwable = null) =
-    logClass.getMethod("v", classOf[String], classOf[String], classOf[Throwable])
-      .invoke(null, tag, message, throwable)
+  def d(tag: String, message: String, tr: Throwable = null) = log("d", tag, message, tr)
 
-  def i(tag: String, message: String, throwable: Throwable = null) =
-    logClass.getMethod("v", classOf[String], classOf[String], classOf[Throwable])
-      .invoke(null, tag, message, throwable)
+  def i(tag: String, message: String, tr: Throwable = null) = log("i", tag, message, tr)
 
-  def w(tag: String, message: String, throwable: Throwable = null) =
-    logClass.getMethod("v", classOf[String], classOf[String], classOf[Throwable])
-      .invoke(null, tag, message, throwable)
+  def w(tag: String, message: String, tr: Throwable = null) = log("w", tag, message, tr)
 
-  def e(tag: String, message: String, throwable: Throwable = null) =
-    logClass.getMethod("v", classOf[String], classOf[String], classOf[Throwable])
+  def e(tag: String, message: String, tr: Throwable = null) = log("e", tag, message, tr)
+
+  private def log(level: String, tag: String, message: String, throwable: Throwable) =
+    logClass.getMethod(level, classOf[String], classOf[String], classOf[Throwable])
       .invoke(null, tag, message, throwable)
 
 }

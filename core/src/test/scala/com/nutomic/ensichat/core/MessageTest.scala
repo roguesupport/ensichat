@@ -1,14 +1,13 @@
-package com.nutomic.ensichat.protocol
+package com.nutomic.ensichat.core
 
 import java.io.ByteArrayInputStream
 
-import android.test.AndroidTestCase
-import com.nutomic.ensichat.core.body.{ConnectionInfo, Text}
-import com.nutomic.ensichat.protocol.MessageTest._
-import com.nutomic.ensichat.protocol.body.ConnectionInfoTest
+import com.nutomic.ensichat.core.MessageTest._
+import com.nutomic.ensichat.core.body.{ConnectionInfo, ConnectionInfoTest, Text}
 import com.nutomic.ensichat.core.header.ContentHeaderTest._
 import com.nutomic.ensichat.core.header.MessageHeader
-import junit.framework.Assert._
+import junit.framework.TestCase
+import org.junit.Assert._
 
 import scala.collection.immutable.TreeSet
 
@@ -24,7 +23,7 @@ object MessageTest {
 
 }
 
-class MessageTest extends AndroidTestCase {
+class MessageTest extends TestCase {
 
   private lazy val crypto: Crypto = new Crypto(getContext)
 

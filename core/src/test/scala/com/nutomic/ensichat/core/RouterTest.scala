@@ -1,13 +1,13 @@
-package com.nutomic.ensichat.protocol
+package com.nutomic.ensichat.core
 
 import java.util.{Date, GregorianCalendar}
 
-import android.test.AndroidTestCase
-import com.nutomic.ensichat.core.body.{UserInfo, Text}
+import com.nutomic.ensichat.core.body.{Text, UserInfo}
 import com.nutomic.ensichat.core.header.ContentHeader
-import junit.framework.Assert._
+import org.junit.Assert._
+import junit.framework.TestCase
 
-class RouterTest extends AndroidTestCase {
+class RouterTest extends TestCase {
 
   private def neighbors() = Set[Address](AddressTest.a1, AddressTest.a2, AddressTest.a3)
 

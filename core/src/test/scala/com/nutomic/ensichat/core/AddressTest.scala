@@ -1,8 +1,8 @@
-package com.nutomic.ensichat.protocol
+package com.nutomic.ensichat.core
 
-import android.test.AndroidTestCase
-import com.nutomic.ensichat.protocol.AddressTest._
-import junit.framework.Assert._
+import org.junit.Assert._
+import junit.framework.TestCase
+import com.nutomic.ensichat.core.AddressTest._
 
 object AddressTest {
 
@@ -24,7 +24,7 @@ object AddressTest {
 
 }
 
-class AddressTest extends AndroidTestCase {
+class AddressTest extends TestCase {
 
   def testEncode(): Unit = {
     Addresses.foreach{a =>

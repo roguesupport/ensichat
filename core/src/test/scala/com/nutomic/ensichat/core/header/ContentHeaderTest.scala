@@ -1,11 +1,11 @@
 package com.nutomic.ensichat.core.header
 
-import java.util.{GregorianCalendar, Date}
+import java.util.{Date, GregorianCalendar}
 
-import android.test.AndroidTestCase
 import com.nutomic.ensichat.core.body.Text
-import com.nutomic.ensichat.protocol.{Address, AddressTest}
-import junit.framework.Assert._
+import com.nutomic.ensichat.core.{Address, AddressTest}
+import junit.framework.TestCase
+import org.junit.Assert._
 
 object ContentHeaderTest {
 
@@ -28,7 +28,7 @@ object ContentHeaderTest {
 
 }
 
-class ContentHeaderTest extends AndroidTestCase {
+class ContentHeaderTest extends TestCase {
 
   def testSerialize(): Unit = {
     ContentHeaderTest.headers.foreach{h =>

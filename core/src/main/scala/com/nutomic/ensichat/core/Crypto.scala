@@ -81,7 +81,7 @@ class Crypto(preferences: Settings, keyFolder: File) {
       // The hash must have at least one bit set to not collide with the broadcast address.
     } while(address == Address.Broadcast || address == Address.Null)
 
-    preferences.put(Crypto.LocalAddressKey, address.toString)
+    preferences.put(LocalAddressKey, address.toString)
 
     saveKey(PrivateKeyAlias, keyPair.getPrivate)
     saveKey(PublicKeyAlias, keyPair.getPublic)
