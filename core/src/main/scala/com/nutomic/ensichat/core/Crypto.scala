@@ -36,7 +36,12 @@ object Crypto {
   /**
    * Algorithm used for symmetric message encryption.
    */
-  val SymmetricKeyAlgorithm = "AES/CBC/PKCS5Padding"
+  val SymmetricKeyAlgorithm = "AES"
+
+  /**
+   * Length of the symmetric message encryption key in bits.
+   */
+  val SymmetricKeyLength = 128
 
   /**
    * Algorithm used to hash PublicKey and get the address.
@@ -160,7 +165,7 @@ class Crypto(preferences: Settings, keyFolder: File) {
         ", aborting")
     }
 
-    keyFolder.mkdir()
+    keyFolder.mkdirs()
     var fos: Option[FileOutputStream] = None
     try {
       fos = Option(new FileOutputStream(path))
@@ -273,7 +278,7 @@ class Crypto(preferences: Settings, keyFolder: File) {
    */
   private def makeSecretKey(): SecretKey = {
     val kgen = KeyGenerator.getInstance(SymmetricCipherAlgorithm)
-    kgen.init(256)
+    kgen.init(SymmetricKeyLength)
     val key = kgen.generateKey()
     new SecretKeySpec(key.getEncoded, SymmetricKeyAlgorithm)
   }

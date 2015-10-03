@@ -3,4 +3,9 @@ apply plugin: 'scala'
 dependencies {
     compile 'org.scala-lang:scala-library:2.11.7'
     testCompile 'junit:junit:4.12'
+    testCompile 'commons-io:commons-io:2.4'
+}
+
+test {
+    systemProperty "testDir", new File(buildDir, "/test/").toString()
 }

@@ -1,19 +1,33 @@
 package com.nutomic.ensichat.core
 
-import org.junit.Assert._
+import java.io.File
+
+import com.nutomic.ensichat.core.interfaces.Settings
 import junit.framework.TestCase
+import org.junit.Assert._
 
-class CryptoTest extends TestCase {
+object CryptoTest {
 
+  class TestSettings extends Settings {
+    private var map = Map[String, Any]()
+    override def get[T](key: String, default: T): T = map.getOrElse(key, default).asInstanceOf[T]
+    override def put[T](key: String, value: T): Unit = map += (key -> value)
+  }
 
-  private lazy val crypto: Crypto = new Crypto(getContext)
-
-  override def setUp(): Unit = {
-    super.setUp()
+  def getCrypto: Crypto = {
+    val tempFolder = new File(System.getProperty("testDir"), "/crypto/")
+    val crypto = new Crypto(new TestSettings(), tempFolder)
     if (!crypto.localKeysExist) {
       crypto.generateLocalKeys()
     }
+    crypto
   }
+
+}
+
+class CryptoTest extends TestCase {
+
+  private lazy val crypto = CryptoTest.getCrypto
 
   def testSignVerify(): Unit = {
     MessageTest.messages.foreach { m =>

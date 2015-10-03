@@ -25,14 +25,7 @@ object MessageTest {
 
 class MessageTest extends TestCase {
 
-  private lazy val crypto: Crypto = new Crypto(getContext)
-
-  override def setUp(): Unit = {
-    super.setUp()
-    if (!crypto.localKeysExist) {
-      crypto.generateLocalKeys()
-    }
-  }
+  private lazy val crypto = CryptoTest.getCrypto
 
   def testOrder(): Unit = {
     var messages = new TreeSet[Message]()(Message.Ordering)
@@ -48,7 +41,7 @@ class MessageTest extends TestCase {
 
   def testSerializeSigned(): Unit = {
     val header = new MessageHeader(ConnectionInfo.Type, AddressTest.a4, AddressTest.a2, 0)
-    val m = new Message(header, ConnectionInfoTest.generateCi(getContext))
+    val m = new Message(header, ConnectionInfoTest.generateCi())
 
     val signed = crypto.sign(m)
     val bytes = signed.write
